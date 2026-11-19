@@ -1,7 +1,8 @@
-.red-text {
+/* Class selectors: name the role of the text, not its look. */
+.highlight {
   color: red;
 }
 
-.blue-text {
+.slogan {
   color: blue;
 }
