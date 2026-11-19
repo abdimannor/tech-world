@@ -2,14 +2,14 @@
 
 An early exercise, from 2023, in classes and an external stylesheet. The page is a short Swedish advert for a technology programme: a heading, two lines of text in different colours, a picture, and a link to the design and product development programme at NTI Gymnasiet in Helsingborg.
 
-## What to look at
+## The reworked version
 
-- **An external stylesheet.** `index.html` loads `style.css` with `<link rel="stylesheet">` on line 15. All the styling lives in that separate file, which any number of pages could share.
-- **Class selectors.** `style.css` has two rules, `.red-text` and `.blue-text`. Lines 19 and 20 of `index.html` opt in with `class="..."`. An element selector like `p` would style every paragraph the same; a class lets two paragraphs that use the same tag look different.
-- **Naming.** The class names describe the look (`red-text`) rather than the role of the text. That is fine for practice, but a name like `highlight` would still make sense if the colour changed later.
-- **Alt text.** The image has a description (`alt="En bild på teknik"`), which the earlier hello-web page did not have.
+The text and the link are unchanged; the page is now a dark card with the photo on top. The original is in the git history.
 
-A small fix in this version: the `<br>` that used to sit inside the link now comes just before it, so the link holds only its text. The page looks the same.
+- **Still one external stylesheet.** `index.html` loads `style.css` with `<link rel="stylesheet">`; there are no inline styles or `<style>` blocks.
+- **Element selectors vs class selectors.** `style.css` is split in two commented parts. Element selectors (`body`, `h1`, `p`, `img`, `a`) set the base for every element of that type. Class selectors (`.highlight`, `.slogan`, `.cta`, `.card`) let two paragraphs that share the `<p>` tag look different.
+- **Renamed classes.** `.red-text` is now `.highlight` and `.blue-text` is now `.slogan`. The old names described the look; the new ones describe the role, so they stay true if the colours change (as they did here: both are lighter for contrast on the dark background).
+- **Smaller fixes.** The `<br>` is gone; the link is a button-style call to action with a visible focus outline. The image has width and height set and a more specific alt text. The layout is responsive.
 
 ## Open it locally
 
