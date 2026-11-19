@@ -23,7 +23,7 @@ open index.html
 
 On Windows or Linux, double-click the file or drag it into a browser window instead of `open`.
 
-There is no live demo. The repository is private and GitHub Pages is not enabled for it, so the Pages workflow has nothing to publish to.
+A private copy runs at [tech-world-zeta.vercel.app](https://tech-world-zeta.vercel.app/) on Vercel. It sits behind Vercel Authentication, so it opens only for signed-in members of the Vercel team; everyone else is sent to a login page. Every push to `master` redeploys it.
 
 ## License
 
