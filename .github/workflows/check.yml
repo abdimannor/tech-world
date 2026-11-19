@@ -1,0 +1,61 @@
+name: Check HTML
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse every page and check local links
+        run: |
+          python3 - <<'PY'
+          import pathlib, sys, urllib.parse
+          from html.parser import HTMLParser
+
+          VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input",
+                  "link", "meta", "source", "track", "wbr"}
+          OPTIONAL_END = {"p", "li", "dt", "dd", "tr", "td", "th", "option"}
+
+          class Page(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.stack, self.refs, self.errors = [], [], []
+              def handle_starttag(self, tag, attrs):
+                  for key, value in attrs:
+                      if key in ("href", "src") and value:
+                          self.refs.append(value)
+                  if tag not in VOID:
+                      self.stack.append(tag)
+              def handle_endtag(self, tag):
+                  if tag in VOID:
+                      return
+                  while self.stack and self.stack[-1] != tag and self.stack[-1] in OPTIONAL_END:
+                      self.stack.pop()
+                  if self.stack and self.stack[-1] == tag:
+                      self.stack.pop()
+                  else:
+                      self.errors.append(f"unexpected </{tag}> at line {self.getpos()[0]}")
+
+          failed = False
+          for page in sorted(pathlib.Path(".").glob("*.html")):
+              parser = Page()
+              parser.feed(page.read_text(encoding="utf-8"))
+              leftover = [t for t in parser.stack if t not in OPTIONAL_END]
+              for error in parser.errors + [f"unclosed <{t}>" for t in leftover]:
+                  print(f"{page}: {error}")
+                  failed = True
+              for ref in parser.refs:
+                  parts = urllib.parse.urlparse(ref)
+                  if parts.scheme or ref.startswith(("#", "//", "mailto:")):
+                      continue
+                  target = page.parent / urllib.parse.unquote(parts.path)
+                  if parts.path and not target.exists():
+                      print(f"{page}: missing local file {ref}")
+                      failed = True
+              print(f"{page}: checked")
+          sys.exit(1 if failed else 0)
+          PY
