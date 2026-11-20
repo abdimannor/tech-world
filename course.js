@@ -1,6 +1,11 @@
 /* Course bar: challenge progress per site and the motion switch. Shared by all four lessons. */
 (() => {
   'use strict';
+  /* Framed copies of the page (previews) carry no course chrome. */
+  if (window.self !== window.top) {
+    for (const el of document.querySelectorAll('.course-bar, .course-next')) el.remove();
+    return;
+  }
   const KEY = 'course-done';
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
