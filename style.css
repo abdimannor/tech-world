@@ -11,6 +11,9 @@
   --highlight: #ff6b6b; /* was red; lighter for contrast on dark */
   --slogan: #7aa7ff;    /* was blue; lighter for contrast on dark */
   --line: #24304f;
+  --course-bg: #121a33;
+  --course-ink: #e8ecf8;
+  --course-accent: #ff6b6b;
 }
 
 /* ---- Element selectors: apply to every element of that type ---- */
