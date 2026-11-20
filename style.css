@@ -90,15 +90,10 @@ a {
   color: var(--bg);
   font-weight: 700;
   text-decoration: none;
-  transition: transform 0.15s ease, background-color 0.15s ease;
 }
-.cta:hover { background: #ffffff; transform: translateY(-1px); }
+.cta:hover { background: #ffffff; }
 .cta:focus-visible { outline: 3px solid var(--slogan); outline-offset: 3px; }
 
-@media (prefers-reduced-motion: reduce) {
-  .cta { transition: none; }
-  .cta:hover { transform: none; }
-}
 
 /* ===== Selector inspector (not part of the lesson rules above) ===== */
 .inspector[hidden] { display: none; }
@@ -179,3 +174,15 @@ body.has-quiz .quiz { grid-column: 1 / -1; grid-row: 2; }
 .quiz-on { outline: 4px solid #ffd36b !important; outline-offset: 4px; box-shadow: 0 0 0 10px rgb(255 211 107 / .18); }
 @media (max-width: 70rem) { body.has-quiz .quiz { grid-row: auto; } }
 img.quiz-on { outline-offset: -6px; box-shadow: none; }
+
+/* Motion: on when the switch (or, without a choice, the OS) says so. */
+:root[data-motion="on"] { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion]) { scroll-behavior: smooth; }
+}
+:root[data-motion="on"] .cta { transition: transform 0.15s ease, background-color 0.15s ease; }
+:root[data-motion="on"] .cta:hover { transform: translateY(-1px); }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion]) .cta { transition: transform 0.15s ease, background-color 0.15s ease; }
+  :root:not([data-motion]) .cta:hover { transform: translateY(-1px); }
+}
