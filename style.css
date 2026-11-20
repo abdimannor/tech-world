@@ -186,3 +186,17 @@ img.quiz-on { outline-offset: -6px; box-shadow: none; }
   :root:not([data-motion]) .cta { transition: transform 0.15s ease, background-color 0.15s ease; }
   :root:not([data-motion]) .cta:hover { transform: translateY(-1px); }
 }
+
+/* ---- course bar: first row, full bleed; next lesson last ---- */
+body, body.has-inspector { grid-template-rows: auto 1fr auto auto; }
+.course-bar {
+  grid-column: 1 / -1; grid-row: 1; justify-self: stretch; align-self: start;
+  margin: calc(-1 * clamp(1rem, 4vw, 3rem)) calc(-1 * clamp(1rem, 4vw, 3rem)) 1.5rem;
+}
+body.has-inspector main { grid-row: 2; }
+.course-next { grid-column: 1 / -1; justify-self: stretch; width: 100%; }
+@media (min-width: 70.0625rem) {
+  .inspector { grid-row: 2; }
+  body.has-quiz .quiz { grid-row: 3; }
+  .course-next { grid-row: 4; }
+}
