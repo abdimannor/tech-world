@@ -33,7 +33,7 @@
     cssRules().forEach((r) => {
       r.selectorText.split(',').forEach((sel) => {
         sel = sel.trim();
-        if (/[*:]/.test(sel)) return;
+        if (/[*:\[]|ins-|inspector/.test(sel)) return;
         let hit = false;
         try { hit = el.matches(sel); } catch (e) { return; }
         const k = kind(sel);

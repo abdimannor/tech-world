@@ -24,8 +24,18 @@
       <a class="cta" href="https://www.ntigymnasiet.se/program/design-och-produktutveckling/helsingborg/">Läs mer om vårt teknikprogram!</a>
     </div>
   </main>
+  <aside class="inspector" id="inspector" aria-labelledby="ins-title" hidden>
+    <p class="ins-kicker">Selector inspector</p>
+    <h2 id="ins-title">Peka. Klicka. Se vilka regler som träffar.</h2>
+    <p class="ins-hint">Hover or Tab onto any part of the card. Click to pin it.</p>
+    <div class="ins-target-row"><span class="ins-swatch" role="img"></span><div><p class="ins-target"></p><p class="ins-color">color: <code class="ins-computed"></code> <span class="ins-why"></span></p></div></div>
+    <ol class="ins-out" aria-live="polite"></ol>
+    <label class="ins-switch"><input type="checkbox" id="ins-rename"> <span>Rename the classes in the HTML</span></label>
+    <p class="ins-state" role="status">Names match: element rules set the base, class rules opt in.</p>
+  </aside>
   <footer class="site-footer">
     <p>&copy; 2026 Mahad Abdullahi</p>
   </footer>
+  <script src="inspector.js" defer></script>
 </body>
 </html>
