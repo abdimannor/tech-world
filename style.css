@@ -92,14 +92,6 @@ a {
 .cta:hover { background: #ffffff; transform: translateY(-1px); }
 .cta:focus-visible { outline: 3px solid var(--slogan); outline-offset: 3px; }
 
-.site-footer p {
-  margin: 1.5rem 0 0;
-  color: var(--muted);
-  font-size: 0.85rem;
-  font-weight: 400;
-  text-align: center;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .cta { transition: none; }
   .cta:hover { transform: none; }
