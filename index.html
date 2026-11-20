@@ -33,9 +33,17 @@
     <label class="ins-switch"><input type="checkbox" id="ins-rename"> <span>Rename the classes in the HTML</span></label>
     <p class="ins-state" role="status">Names match: element rules set the base, class rules opt in.</p>
   </aside>
-  <footer class="site-footer">
-    <p>&copy; 2026 Mahad Abdullahi</p>
-  </footer>
+  <section class="quiz" id="quiz" aria-labelledby="quiz-title" hidden>
+    <p class="ins-kicker">Quiz</p>
+    <h2 id="quiz-title">Name the selector</h2>
+    <p class="quiz-hint">One part of the card gets a yellow frame. Which selector in style.css gives it its look? Pick one, then read why.</p>
+    <p class="quiz-progress" id="quiz-progress"></p>
+    <p class="quiz-question" id="quiz-question"></p>
+    <div class="quiz-options" id="quiz-options" role="group" aria-labelledby="quiz-question"></div>
+    <p class="quiz-explain" id="quiz-explain" role="status" aria-live="polite"></p>
+    <button type="button" class="quiz-next" id="quiz-next" hidden>Next element</button>
+  </section>
   <script src="inspector.js" defer></script>
+  <script src="quiz.js" defer></script>
 </body>
 </html>
