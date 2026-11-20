@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="data:,">
+  <script>(()=>{let m=null;try{m=localStorage.getItem('motion')}catch(e){}document.documentElement.dataset.motion=m==='on'||m==='off'?m:(matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on')})()</script>
   <title>Tech World</title>
   <meta name="description" content="HTML page with an external stylesheet and class selectors: explore the tech world.">
   <meta property="og:title" content="Tech World">
@@ -13,8 +14,19 @@
   <meta name="twitter:title" content="Tech World">
   <meta name="twitter:description" content="HTML page with an external stylesheet and class selectors: explore the tech world.">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="course.css">
 </head>
 <body>
+  <nav class="course-bar" lang="sv" aria-label="Kursen">
+    <p class="course-name">Kurs</p>
+    <ol>
+      <li><a href="https://hello-web-kappa.vercel.app/"><span class="course-num">Lektion 1</span> Hello Web<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+      <li><a href="https://tech-world-zeta.vercel.app/" aria-current="page"><span class="course-num">Lektion 2</span> Tech World<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+      <li><a href="https://link-lab-flax.vercel.app/"><span class="course-num">Lektion 3</span> Link Lab<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+      <li><a href="https://dress-code-bay.vercel.app/"><span class="course-num">Lektion 4</span> Dress Code<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+    </ol>
+    <span class="course-motion"><button type="button" aria-pressed="false">R&ouml;relse</button></span>
+  </nav>
   <main class="card">
     <img src="tech.jpg" alt="Två elever vid datorskärmar med ett 3D-program öppet" width="940" height="420">
     <div class="card-body">
@@ -43,7 +55,12 @@
     <p class="quiz-explain" id="quiz-explain" role="status" aria-live="polite"></p>
     <button type="button" class="quiz-next" id="quiz-next" hidden>Next element</button>
   </section>
+  <nav class="course-next" lang="sv" aria-label="N&auml;sta lektion">
+    <p>N&auml;sta lektion</p>
+    <a href="https://link-lab-flax.vercel.app/">Lektion 3: Link Lab &rarr;</a>
+  </nav>
   <script src="inspector.js" defer></script>
   <script src="quiz.js" defer></script>
+  <script src="course.js" defer></script>
 </body>
 </html>

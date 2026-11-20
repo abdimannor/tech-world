@@ -60,6 +60,7 @@
     if (i < Q.length - 1) { i++; show(); return; }
     frame('none');
     $('#quiz-question').textContent = 'Done: ' + score + ' of ' + Q.length + '.';
+    if (window.courseDone) window.courseDone();
     $('#quiz-options').innerHTML = '';
     $('#quiz-explain').textContent = score === Q.length ? 'Every selector named. Element selectors set the base, classes opt in.' : 'Rule of thumb: an element with a class usually gets its distinct look from that class.';
     const next = $('#quiz-next');
