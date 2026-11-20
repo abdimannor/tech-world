@@ -1,0 +1,41 @@
+/* Course bar: one shared snippet across the four lessons. Each site sets the three colours. */
+.course-bar {
+  --cb-bg: var(--course-bg, #111);
+  --cb-ink: var(--course-ink, #fff);
+  --cb-accent: var(--course-accent, #ffd23f);
+  display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .75rem;
+  padding: .45rem clamp(.75rem, 3vw, 1.5rem);
+  background: var(--cb-bg); color: var(--cb-ink);
+  font: 600 .8125rem/1.3 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: 0;
+}
+.course-bar .course-name { margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; font-size: .7rem; opacity: .85; }
+.course-bar ol { display: flex; flex-wrap: wrap; gap: .25rem; margin: 0; padding: 0; list-style: none; }
+.course-bar a {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .3rem .6rem; border-radius: 999px;
+  border: 1px solid transparent;
+}
+.course-bar a:is(:link, :visited, :hover, :active) { color: inherit; background: transparent; text-decoration: none; outline: 0; }
+.course-bar a:hover { text-decoration: underline; }
+.course-bar a:focus-visible { outline: 2px solid var(--cb-accent); outline-offset: 2px; }
+.course-bar a[aria-current="page"]:is(:link, :visited, :hover, :active) { background: var(--cb-accent); color: var(--cb-bg); font-weight: 800; }
+.course-bar .course-num { font-variant-numeric: tabular-nums; }
+.course-bar .course-mark { font-weight: 800; }
+.course-bar .course-mark[hidden] { display: none; }
+.course-motion { display: inline-flex; align-items: center; margin-left: auto; }
+.course-motion button {
+  font: inherit; color: inherit; background: transparent; cursor: pointer;
+  padding: .3rem .6rem; border-radius: 999px; border: 1px solid currentColor;
+}
+.course-motion button:focus-visible { outline: 2px solid var(--cb-accent); outline-offset: 2px; }
+.course-next {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1.5rem;
+  max-width: 60rem; margin: 3rem auto 0; padding: 1.25rem clamp(1rem, 4vw, 2rem);
+  background: var(--course-bg, #111); color: var(--course-ink, #fff);
+  font: 600 1rem/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+.course-next p { margin: 0; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; opacity: .85; }
+.course-next a:is(:link, :visited, :hover, :active) { color: inherit; background: transparent; font-weight: 800; font-size: 1.25rem; text-decoration: underline; text-underline-offset: .2em; }
+.course-next a:focus-visible { outline: 2px solid var(--course-accent, #ffd23f); outline-offset: 3px; }
+:root[data-motion="on"] .course-bar a, :root[data-motion="on"] .course-motion button { transition: background-color .2s, color .2s; }
