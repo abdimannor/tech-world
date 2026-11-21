@@ -112,3 +112,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, .demo-switch:focus-w
 :root[data-motion="on"] .rise:nth-of-type(4) { animation-delay: 180ms; }
 :root[data-motion="on"] .rise:nth-of-type(5) { animation-delay: 240ms; }
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+
+/* Shared with the other lessons: the small label above the title. */
+.eyebrow { display: block; margin: 0 0 .9rem; font: 600 .8rem/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-text); }
