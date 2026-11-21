@@ -1,60 +1,138 @@
-/* Course bar: one shared snippet across the four lessons. Each site sets the three colours. */
-.course-bar {
-  --cb-bg: var(--course-bg, #111);
-  --cb-ink: var(--course-ink, #fff);
-  --cb-accent: var(--course-accent, #ffd23f);
-  display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .75rem;
-  padding: .45rem clamp(.75rem, 3vw, 1.5rem);
-  background: var(--cb-bg); color: var(--cb-ink);
-  font: 600 .8125rem/1.3 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  letter-spacing: 0;
+/* Webbkursen: shared tokens, course bar, quiet controls and lesson footer.
+   Byte-identical in all four lessons. Each lesson sets only --accent and
+   --accent-text (AA text on the page) in its own stylesheet.
+   Pages whose own design is dark ask for the dark bar with
+   <html data-scheme="dark">; light-only pages pin it with data-scheme="light". */
+:root {
+  --c-bg: #f6f7fb;
+  --c-card: #fff;
+  --c-ink: #151a2d;
+  --c-muted: #59607a;
+  --c-line: rgb(21 26 45 / .1);
+  --c-accent: var(--accent, #2f5bea);
+  --c-accent-text: var(--accent-text, var(--accent, #2f5bea));
+  --c-shadow: 0 1px 2px rgb(0 0 0 / .05), 0 8px 24px rgb(20 30 60 / .06);
+  --c-radius: 14px;
+  --c-radius-code: 10px;
+  --c-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --c-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --c-measure: 68ch;
+  color-scheme: light dark;
 }
-.course-bar .course-name { margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; font-size: .7rem; opacity: .85; }
-.course-bar ol { display: flex; flex-wrap: wrap; gap: .25rem; margin: 0; padding: 0; list-style: none; }
-.course-bar a {
-  display: inline-flex; align-items: center; gap: .35rem;
-  padding: .3rem .6rem; border-radius: 999px;
-  border: 1px solid transparent;
+@media (prefers-color-scheme: dark) {
+  :root:not([data-scheme="light"]) {
+    --c-bg: #0e1220;
+    --c-card: #161b2e;
+    --c-ink: #e6e9f5;
+    --c-muted: #9aa1bd;
+    --c-line: rgb(230 233 245 / .12);
+    --c-shadow: 0 1px 2px rgb(0 0 0 / .3), 0 8px 24px rgb(0 0 0 / .25);
+  }
 }
-.course-bar a:is(:link, :visited, :hover, :active) { color: inherit; background: transparent; text-decoration: none; outline: 0; }
-.course-bar a:hover { text-decoration: underline; }
-.course-bar a:focus-visible { outline: 2px solid var(--cb-accent); outline-offset: 2px; }
-.course-bar a[aria-current="page"]:is(:link, :visited, :hover, :active) { background: var(--cb-accent); color: var(--cb-bg); font-weight: 800; }
-.course-bar .course-num { font-variant-numeric: tabular-nums; }
-.course-bar .course-mark { font-weight: 800; }
-.course-bar .course-mark[hidden] { display: none; }
-.course-motion { display: inline-flex; align-items: center; margin-left: auto; }
-.course-motion button {
-  font: inherit; color: inherit; background: transparent; cursor: pointer;
-  padding: .3rem .6rem; border-radius: 999px; border: 1px solid currentColor;
+:root[data-scheme="dark"] {
+  --c-bg: #0e1220;
+  --c-card: #161b2e;
+  --c-ink: #e6e9f5;
+  --c-muted: #9aa1bd;
+  --c-line: rgb(230 233 245 / .12);
+  --c-shadow: 0 1px 2px rgb(0 0 0 / .3), 0 8px 24px rgb(0 0 0 / .25);
+  color-scheme: dark;
 }
-.course-motion button:focus-visible { outline: 2px solid var(--cb-accent); outline-offset: 2px; }
-.course-next {
-  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1.5rem;
-  max-width: 60rem; margin: 3rem auto 0; padding: 1.25rem clamp(1rem, 4vw, 2rem);
-  background: var(--course-bg, #111); color: var(--course-ink, #fff);
-  font: 600 1rem/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-.course-next p { margin: 0; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; opacity: .85; }
-.course-next a:is(:link, :visited, :hover, :active) { color: inherit; background: transparent; font-weight: 800; font-size: 1.25rem; text-decoration: underline; text-underline-offset: .2em; }
-.course-next a:focus-visible { outline: 2px solid var(--course-accent, #ffd23f); outline-offset: 3px; }
-:root[data-motion="on"] .course-bar a, :root[data-motion="on"] .course-motion button { transition: background-color .2s, color .2s; }
+:root[data-scheme="light"] { color-scheme: light; }
 
-/* Course complete card: shown by course.js on the last lesson when all four are done. */
-.course-complete {
-  max-width: 60rem; margin: 3rem auto 0; padding: clamp(1.25rem, 4vw, 2.25rem) clamp(1rem, 4vw, 2rem);
-  background: var(--course-accent, #ffd23f); color: var(--course-bg, #111);
-  font: 500 1rem/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+/* ---- course bar ---- */
+.course-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.75rem;
+  box-sizing: border-box;
+  padding: .7rem clamp(1rem, 4vw, 2.5rem);
+  background: var(--c-bg); color: var(--c-ink);
+  border-bottom: 1px solid var(--c-line);
+  font: 500 .875rem/1.3 var(--c-sans);
+  letter-spacing: 0; text-transform: none; text-align: left;
 }
-.course-complete h2 { margin: 0 0 .25rem; font-size: clamp(2rem, 6vw, 3.25rem); font-weight: 900; line-height: 1; letter-spacing: -.02em; }
-.course-complete > p { margin: 0 0 1.25rem; font-weight: 700; }
+.course-bar .course-name { margin: 0; font-weight: 750; font-size: .95rem; letter-spacing: -.01em; }
+.course-bar ol { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; margin: 0; padding: 0; list-style: none; }
+.course-bar li { margin: 0; padding: 0; max-width: none; }
+.course-bar li::before, .course-bar li::marker { content: none; }
+.course-bar a { display: inline-flex; align-items: center; gap: .4rem; padding: .4rem 0; border-bottom: 2px solid transparent; font: inherit; }
+.course-bar a:is(:link, :visited, :hover, :active) { color: var(--c-muted); background: transparent; text-decoration: none; }
+.course-bar a:hover { color: var(--c-ink); }
+.course-bar a:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; border-radius: 2px; }
+.course-bar a[aria-current="page"]:is(:link, :visited, :hover, :active) { color: var(--c-ink); font-weight: 650; border-bottom-color: var(--c-accent); }
+.course-bar .course-num { font: 500 .8em var(--c-mono); font-variant-numeric: tabular-nums; }
+.course-bar .course-mark { display: inline-flex; color: var(--c-accent-text); }
+.course-bar .course-mark svg { display: block; }
+.course-bar .course-mark[hidden] { display: none; }
+@media (max-width: 40rem) {
+  .course-bar { gap: .25rem 1rem; }
+  .course-bar ol { order: 1; flex-basis: 100%; gap: 0 .9rem; font-size: .8125rem; }
+}
+
+/* ---- quiet icon controls ---- */
+.course-controls { display: inline-flex; align-items: center; gap: .5rem; margin-left: auto; }
+.course-icon-btn {
+  display: inline-grid; place-items: center; box-sizing: border-box;
+  width: 34px; height: 34px; margin: 0; padding: 0; border-radius: 999px;
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  background: transparent; color: inherit; cursor: pointer; box-shadow: none;
+  font: inherit;
+  transition: background-color 150ms;
+}
+.course-icon-btn:hover, .course-icon-btn:focus-visible { background: color-mix(in srgb, currentColor 10%, transparent); }
+.course-icon-btn:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+.course-icon-btn svg { display: block; }
+html[data-motion="off"] .course-icon-btn { transition: none; }
+/* Both icons ship in the markup; html[data-motion] (set before first paint) picks one. */
+.course-motion .icon-play { display: none; }
+html[data-motion="off"] .course-motion .icon-play { display: block; }
+html[data-motion="off"] .course-motion .icon-pause { display: none; }
+
+/* ---- lesson footer: previous / next ---- */
+.course-next {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  box-sizing: border-box; max-width: 76rem; margin: 5rem auto 0; padding: 2rem clamp(1rem, 4vw, 2.5rem) 3rem;
+  border-top: 1px solid var(--c-line);
+  font: 500 1rem/1.4 var(--c-sans); color: var(--c-ink);
+}
+.course-next a {
+  display: flex; flex-direction: column; gap: .3rem;
+  padding: 1.1rem 1.25rem; border-radius: var(--c-radius);
+  background: var(--c-card); box-shadow: var(--c-shadow); border: 1px solid var(--c-line);
+}
+.course-next a:is(:link, :visited, :hover, :active) { color: var(--c-ink); text-decoration: none; }
+.course-next a:hover { border-color: var(--c-accent); }
+.course-next a:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 3px; }
+.course-next .course-next-label { font-size: .85rem; color: var(--c-muted); }
+.course-next .course-next-title { font-weight: 750; font-size: 1.2rem; letter-spacing: -.02em; }
+.course-next .course-next-from { grid-column: 1; }
+.course-next .course-next-to { grid-column: 2; text-align: right; }
+@media (max-width: 40rem) {
+  .course-next { grid-template-columns: 1fr; }
+  .course-next .course-next-from, .course-next .course-next-to { grid-column: 1; }
+}
+
+/* ---- course complete card (course.js, last lesson only) ---- */
+.course-complete {
+  box-sizing: border-box; max-width: 76rem; margin: 4rem auto 0; padding: clamp(1.25rem, 4vw, 2.25rem);
+  background: var(--c-card); color: var(--c-ink); border-radius: var(--c-radius); box-shadow: var(--c-shadow);
+  border-top: 4px solid var(--c-accent);
+  font: 500 1rem/1.5 var(--c-sans);
+}
+.course-complete h2 { margin: 0 0 .25rem; font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 750; letter-spacing: -.02em; }
+.course-complete > p { margin: 0 0 1.25rem; color: var(--c-muted); }
 .course-complete ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: .75rem; margin: 0; padding: 0; list-style: none; }
-.course-complete li { display: flex; flex-direction: column; gap: .2rem; padding: .85rem 1rem; background: var(--course-bg, #111); color: var(--course-ink, #fff); }
-.course-complete .course-num { font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; opacity: .85; }
-.course-complete strong { font-size: 1.15rem; }
-.course-complete li::before { content: "\2713"; font-weight: 900; color: var(--course-accent, #ffd23f); }
-:root[data-motion="on"] .course-complete li { animation: course-tick .5s cubic-bezier(.2, .8, .2, 1.2) both; }
-:root[data-motion="on"] .course-complete li:nth-child(2) { animation-delay: .1s; }
-:root[data-motion="on"] .course-complete li:nth-child(3) { animation-delay: .2s; }
-:root[data-motion="on"] .course-complete li:nth-child(4) { animation-delay: .3s; }
-@keyframes course-tick { from { opacity: 0; transform: translateY(.75rem) scale(.96); } }
+.course-complete li { display: flex; flex-direction: column; gap: .2rem; padding: .85rem 1rem; border: 1px solid var(--c-line); border-radius: var(--c-radius-code); }
+.course-complete .course-num { font: .75rem var(--c-mono); color: var(--c-muted); }
+.course-complete strong { font-size: 1.1rem; }
+.course-complete li::before { content: "\2713"; font-weight: 800; color: var(--c-accent-text); }
+
+/* ---- motion: on unless the visitor turned it off (html[data-motion="off"]) ---- */
+@keyframes course-rise { from { opacity: 0; transform: translateY(8px); } }
+html:not([data-motion="off"]) { scroll-behavior: smooth; }
+html:not([data-motion="off"]) .rise { animation: course-rise 400ms cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i, 0) * 60ms); }
+html:not([data-motion="off"]) .course-complete li { animation: course-rise 400ms ease both; }
+html:not([data-motion="off"]) .course-complete li:nth-child(2) { animation-delay: 60ms; }
+html:not([data-motion="off"]) .course-complete li:nth-child(3) { animation-delay: 120ms; }
+html:not([data-motion="off"]) .course-complete li:nth-child(4) { animation-delay: 180ms; }
+
+.course-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

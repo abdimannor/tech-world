@@ -3,7 +3,7 @@
   'use strict';
   const root = document.getElementById('quiz');
   const card = document.querySelector('main.card');
-  if (!root || !card) return;
+  if (!root || !card || window.self !== window.top) return;
   root.hidden = false;
   document.body.classList.add('has-quiz');
 

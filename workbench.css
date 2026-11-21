@@ -10,9 +10,8 @@
   --gold: #ffd36b;
   --green: #4ade80;
   --line: #24304f;
-  --course-bg: #121a33;
-  --course-ink: #e8ecf8;
-  --course-accent: #ff6b6b;
+  --accent: #7048e8; /* lesson accent for the course bar (dark page) */
+  --accent-text: #a994ff;
 }
 *, *::before, *::after { box-sizing: border-box; }
 body {
