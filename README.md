@@ -22,7 +22,18 @@ The text and the link are unchanged; the page is now a dark card with the photo 
 - **Selector inspector.** Point at any element of the card to see which element and class selectors from `style.css` match it and what colour results. A rename switch swaps the class names so the class rules stop matching.
 - **Name the selector.** A quiz frames one element of the card and asks which selector styles it. Finishing it marks the lesson done.
 
+- **Selektorverkstan** (`workbench.html`): the lesson on how a browser *matches* selectors. See below.
+
 The course bar, the next-lesson block and the motion switch come from `course.css` and `course.js`, which are identical in all four repos.
+
+## Selektorverkstan: how a browser matches selectors
+
+The 2023 exercise put `p` next to `.red-text`: one rule hits every paragraph, the other only the paragraph that opts in. The workbench page asks the next question: how does the browser decide what a selector matches, and which rule wins when several do?
+
+- **Type any selector.** It runs through the browser's own `querySelectorAll` against a small sample document (`dokument.html`, built from this page's own content: the card, a menu, a list of topics). Matches are outlined in the rendered document and in an element tree. An invalid selector gets a plain message instead of breaking the page.
+- **Parts and specificity.** The selector is split into compound selectors and combinators, and each part shows its (a, b, c). `specificity.js` follows [Selectors Level 4, section 15](https://www.w3.org/TR/selectors-4/#specificity-rules): `:is()`, `:not()` and `:has()` take the most specific argument, `:where()` counts zero, `:nth-child(… of S)` is one pseudo-class plus `S`.
+- **Right to left.** Engines test the rightmost compound first and then walk up or back through the tree. The steps list shows how many elements survive as each part to the left is added.
+- **Twelve levels.** Each level outlines some elements; write a selector that selects exactly those. The answer is checked by comparing the set of matches with the set of targets, so any equivalent selector is right. The levels go from type and class selectors through the four combinators, attribute selectors, `:not()`, `:nth-child()` and `:has()`. Progress is kept in this site's localStorage.
 
 ## Open it locally
 
@@ -34,7 +45,23 @@ cd tech-world
 open index.html
 ```
 
-On Windows or Linux, double-click the file or drag it into a browser window instead of `open`.
+On Windows or Linux, double-click the file or drag it into a browser window instead of `open`. The workbench reads the sample document from an iframe, which browsers block on `file://`, so serve the folder for that page:
+
+```
+python3 -m http.server 8752
+```
+
+## Tests
+
+A Playwright suite (`tests/`) checks that every page loads without errors and has no axe-core violations, that the motion switch starts off under Reduce motion and keeps the choice, and that the workbench matches, rejects invalid selectors, computes specificity for the Selectors 4 examples, and that every level is solvable and saved.
+
+```
+npm ci
+npx playwright install chromium
+npm test
+```
+
+CI runs the same suite (`.github/workflows/test.yml`) next to the HTML check.
 
 The site is hosted on Vercel; every push to `master` redeploys it.
 

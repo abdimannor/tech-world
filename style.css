@@ -200,3 +200,9 @@ body.has-inspector main { grid-row: 2; }
   body.has-quiz .quiz { grid-row: 3; }
   .course-next { grid-row: 4; }
 }
+
+/* ---- Link to the selector workbench ---- */
+.course-next { order: 1; }
+.lab-link { grid-column: 1 / -1; justify-self: center; width: min(100%, 60rem); margin: 1.5rem 0; padding: 1rem 1.4rem; border: 1px solid var(--line); border-left: 4px solid var(--highlight); border-radius: 14px; background: var(--panel); }
+.lab-link p { margin: 0; font-size: 1rem; font-weight: 400; }
+.lab-link a { color: var(--slogan); font-weight: 700; }
