@@ -53,7 +53,7 @@ python3 -m http.server 8752
 
 ## Tests
 
-A Playwright suite (`tests/`) checks that every page loads without errors and has no axe-core violations, that the motion switch starts off under Reduce motion and keeps the choice, and that the workbench matches, rejects invalid selectors, computes specificity for the Selectors 4 examples, and that every level is solvable and saved.
+A Playwright suite (`tests/`) checks that every page loads without errors and has no axe-core violations, that motion is on by default even under Reduce motion and that the pause button's choice is kept, and that the workbench matches, rejects invalid selectors, computes specificity for the Selectors 4 examples, and that every level is solvable and saved.
 
 ```
 npm ci

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="sv" data-scheme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <script>(()=>{let m=null;try{m=localStorage.getItem('motion')}catch(e){}document.documentElement.dataset.motion=m==='off'?'off':'on'})()</script>
+  <title>Originaluppgiften | Tech World</title>
+  <meta name="description" content="HTML page with an external stylesheet and class selectors: explore the tech world.">
+  <meta property="og:title" content="Tech World">
+  <meta property="og:description" content="HTML page with an external stylesheet and class selectors: explore the tech world.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tech World">
+  <meta name="twitter:description" content="HTML page with an external stylesheet and class selectors: explore the tech world.">
+  <meta property="og:image" content="https://tech-world-zeta.vercel.app/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Screenshot of the Tech World page">
+  <meta name="twitter:image" content="https://tech-world-zeta.vercel.app/og.png">
+  <meta name="twitter:image:alt" content="Screenshot of the Tech World page">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="course.css">
+</head>
+<body>
+  <nav class="course-bar" lang="sv" aria-label="Kursen">
+    <p class="course-name">Webbkursen</p>
+    <ol>
+      <li><a href="https://hello-web-kappa.vercel.app/"><span class="course-num">1</span> Hello Web<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+      <li><a href="https://tech-world-zeta.vercel.app/" aria-current="page"><span class="course-num">2</span> Tech World<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+      <li><a href="https://link-lab-flax.vercel.app/"><span class="course-num">3</span> Link Lab<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+      <li><a href="https://dress-code-bay.vercel.app/"><span class="course-num">4</span> Dress Code<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+    </ol>
+    <span class="course-motion"><button type="button" aria-pressed="true" aria-label="Pausa r&ouml;relse" title="Pausa r&ouml;relse"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><rect x="7" y="5.5" width="3.4" height="13" rx="1.2"/><rect x="13.6" y="5.5" width="3.4" height="13" rx="1.2"/></svg></button></span>
+  </nav>
+  <main class="card">
+    <img src="tech.jpg" alt="Två elever vid datorskärmar med ett 3D-program öppet" width="940" height="420">
+    <div class="card-body">
+      <h1>Utforska den tekniska världen</h1>
+      <p class="highlight">Upptäck spännande innovationer!</p>
+      <p class="slogan">Förverkliga dina teknikdrömmar!</p>
+      <a class="cta" href="https://www.ntigymnasiet.se/program/design-och-produktutveckling/helsingborg/">Läs mer om vårt teknikprogram!</a>
+    </div>
+  </main>
+  <aside class="inspector" id="inspector" aria-labelledby="ins-title" hidden>
+    <p class="ins-kicker">Selector inspector</p>
+    <h2 id="ins-title">Peka. Klicka. Se vilka regler som träffar.</h2>
+    <p class="ins-hint">Hover or Tab onto any part of the card. Click to pin it.</p>
+    <div class="ins-target-row"><span class="ins-swatch" role="img"></span><div><p class="ins-target"></p><p class="ins-color">color: <code class="ins-computed"></code> <span class="ins-why"></span></p></div></div>
+    <ol class="ins-out" aria-live="polite"></ol>
+    <label class="ins-switch"><input type="checkbox" id="ins-rename"> <span>Rename the classes in the HTML</span></label>
+    <p class="ins-state" role="status">Names match: element rules set the base, class rules opt in.</p>
+  </aside>
+  <section class="quiz" id="quiz" aria-labelledby="quiz-title" hidden>
+    <p class="ins-kicker">Quiz</p>
+    <h2 id="quiz-title">Name the selector</h2>
+    <p class="quiz-hint">One part of the card gets a yellow frame. Which selector in style.css gives it its look? Pick one, then read why.</p>
+    <p class="quiz-progress" id="quiz-progress"></p>
+    <p class="quiz-question" id="quiz-question"></p>
+    <div class="quiz-options" id="quiz-options" role="group" aria-labelledby="quiz-question"></div>
+    <p class="quiz-explain" id="quiz-explain" role="status" aria-live="polite"></p>
+    <button type="button" class="quiz-next" id="quiz-next" hidden>Next element</button>
+  </section>
+  <aside class="lab-link" aria-label="Selektorverkstan">
+    <p>Nästa steg: <a href="workbench.html">Selektorverkstan</a>. Skriv egna selektorer, se vad webbläsaren matchar och lös tolv nivåer.</p>
+  </aside>
+  <nav class="course-next" lang="sv" aria-label="F&ouml;reg&aring;ende och n&auml;sta lektion">
+    <a class="course-next-from" href="https://hello-web-kappa.vercel.app/"><span class="course-next-kind">&larr; F&ouml;reg&aring;ende lektion</span><span class="course-next-title">1. Hello Web</span></a>
+    <a class="course-next-to" href="https://link-lab-flax.vercel.app/"><span class="course-next-kind">N&auml;sta lektion &rarr;</span><span class="course-next-title">3. Link Lab</span></a>
+  </nav>
+  <script src="inspector.js" defer></script>
+  <script src="quiz.js" defer></script>
+  <script src="course.js" defer></script>
+</body>
+</html>

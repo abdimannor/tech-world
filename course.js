@@ -1,4 +1,4 @@
-/* Course bar: challenge progress per site and the motion switch. Shared by all four lessons. */
+/* Course bar: challenge progress per site and the motion button. Shared by all four lessons. */
 (() => {
   'use strict';
   /* Framed copies of the page (previews) carry no course chrome. */
@@ -88,13 +88,18 @@
   const btn = document.querySelector('.course-motion button');
   if (!btn) return;
   const root = document.documentElement;
+  const PAUSE = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><rect x="7" y="5.5" width="3.4" height="13" rx="1.2"/><rect x="13.6" y="5.5" width="3.4" height="13" rx="1.2"/></svg>';
+  const PLAY = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 5.8v12.4a1 1 0 0 0 1.5.86l10-6.2a1 1 0 0 0 0-1.72l-10-6.2A1 1 0 0 0 8 5.8z"/></svg>';
   function show() {
-    const on = root.dataset.motion === 'on';
+    const on = root.dataset.motion !== 'off';
+    const label = on ? 'Pausa r\u00f6relse' : 'Starta r\u00f6relse';
     btn.setAttribute('aria-pressed', String(on));
-    btn.textContent = on ? 'R\u00f6relse: p\u00e5' : 'R\u00f6relse: av';
+    btn.setAttribute('aria-label', label);
+    btn.title = label;
+    btn.innerHTML = on ? PAUSE : PLAY;
   }
   btn.addEventListener('click', () => {
-    root.dataset.motion = root.dataset.motion === 'on' ? 'off' : 'on';
+    root.dataset.motion = root.dataset.motion === 'off' ? 'on' : 'off';
     store.set('motion', root.dataset.motion);
     show();
   });
