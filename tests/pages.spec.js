@@ -2,7 +2,7 @@
 const { test, expect } = require('@playwright/test');
 const { watch, axe } = require('./helpers');
 
-const pages = ['index.html', 'workbench.html', 'dokument.html'];
+const pages = ['index.html', 'original.html', 'workbench.html', 'dokument.html'];
 
 for (const file of pages) {
   test(`${file} loads without console errors or failed requests`, async ({ page }) => {
