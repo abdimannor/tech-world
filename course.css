@@ -25,6 +25,17 @@
   }
 }
 
+/* Pages whose own design is dark (the original exercise, the workbench) ask for
+   the dark bar, so it does not sit as a light strip above them. */
+:root[data-scheme="dark"] {
+  --c-bg: #0e1220;
+  --c-card: #161b2e;
+  --c-ink: #e6e9f5;
+  --c-muted: #9aa1bd;
+  --c-line: #262d47;
+  --c-shadow: 0 1px 2px rgb(0 0 0 / .3), 0 8px 24px rgb(0 0 0 / .25);
+}
+
 /* Course bar */
 .course-bar {
   display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.25rem;
