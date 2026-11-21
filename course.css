@@ -39,3 +39,22 @@
 .course-next a:is(:link, :visited, :hover, :active) { color: inherit; background: transparent; font-weight: 800; font-size: 1.25rem; text-decoration: underline; text-underline-offset: .2em; }
 .course-next a:focus-visible { outline: 2px solid var(--course-accent, #ffd23f); outline-offset: 3px; }
 :root[data-motion="on"] .course-bar a, :root[data-motion="on"] .course-motion button { transition: background-color .2s, color .2s; }
+
+/* Course complete card: shown by course.js on the last lesson when all four are done. */
+.course-complete {
+  max-width: 60rem; margin: 3rem auto 0; padding: clamp(1.25rem, 4vw, 2.25rem) clamp(1rem, 4vw, 2rem);
+  background: var(--course-accent, #ffd23f); color: var(--course-bg, #111);
+  font: 500 1rem/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+.course-complete h2 { margin: 0 0 .25rem; font-size: clamp(2rem, 6vw, 3.25rem); font-weight: 900; line-height: 1; letter-spacing: -.02em; }
+.course-complete > p { margin: 0 0 1.25rem; font-weight: 700; }
+.course-complete ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: .75rem; margin: 0; padding: 0; list-style: none; }
+.course-complete li { display: flex; flex-direction: column; gap: .2rem; padding: .85rem 1rem; background: var(--course-bg, #111); color: var(--course-ink, #fff); }
+.course-complete .course-num { font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; opacity: .85; }
+.course-complete strong { font-size: 1.15rem; }
+.course-complete li::before { content: "\2713"; font-weight: 900; color: var(--course-accent, #ffd23f); }
+:root[data-motion="on"] .course-complete li { animation: course-tick .5s cubic-bezier(.2, .8, .2, 1.2) both; }
+:root[data-motion="on"] .course-complete li:nth-child(2) { animation-delay: .1s; }
+:root[data-motion="on"] .course-complete li:nth-child(3) { animation-delay: .2s; }
+:root[data-motion="on"] .course-complete li:nth-child(4) { animation-delay: .3s; }
+@keyframes course-tick { from { opacity: 0; transform: translateY(.75rem) scale(.96); } }
