@@ -1,0 +1,24 @@
+/* The sample document the workbench queries. Same palette as Tech World. */
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; padding: 14px; background: #0b1020; color: #e8ecf8; font: 400 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+a { color: inherit; }
+.site-head nav { display: flex; gap: 6px; margin-bottom: 12px; }
+.site-head a { padding: 4px 10px; border-radius: 999px; border: 1px solid #24304f; text-decoration: none; font-size: 13px; }
+.site-head a.active { background: #24304f; }
+.card { background: #121a33; border: 1px solid #24304f; border-radius: 14px; overflow: hidden; }
+img { display: block; width: 100%; height: 110px; object-fit: cover; }
+.card-body { padding: 14px 16px 16px; }
+h1 { margin: 0 0 6px; font-size: 24px; line-height: 1.1; letter-spacing: -0.02em; }
+p { margin: 0 0 4px; font-weight: 600; }
+.highlight { color: #ff6b6b; }
+.slogan { color: #7aa7ff; margin-bottom: 12px; }
+.cta { display: inline-block; padding: 7px 14px; border-radius: 999px; background: #e8ecf8; color: #0b1020; font-weight: 700; text-decoration: none; font-size: 14px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 12px 0 0; padding: 0; }
+.tags li { padding: 3px 10px; border-radius: 6px; background: #121a33; border: 1px solid #24304f; font-size: 13px; }
+.tags li.new { border-color: #7aa7ff; }
+
+/* Markers set by the workbench in the parent page. */
+.wb-target { outline: 3px dashed #ff9f6b; outline-offset: 3px; }
+.wb-match { outline: 3px solid #ffd36b; outline-offset: 3px; box-shadow: 0 0 0 7px rgb(255 211 107 / .22); }
+.wb-match.wb-target { outline: 3px solid #4ade80; box-shadow: 0 0 0 7px rgb(74 222 128 / .22); }
+img.wb-match, img.wb-target { outline-offset: -5px; }

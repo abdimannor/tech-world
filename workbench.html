@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <script>(()=>{let m=null;try{m=localStorage.getItem('motion')}catch(e){}document.documentElement.dataset.motion=m==='on'||m==='off'?m:(matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on')})()</script>
+  <title>Selektorverkstan: så matchar webbläsaren selektorer | Tech World</title>
+  <meta name="description" content="Skriv en CSS-selektor och se vilka element webbläsaren matchar, hur specificiteten (a, b, c) räknas och varför matchningen går från höger till vänster. Tolv nivåer att lösa.">
+  <meta property="og:title" content="Selektorverkstan | Tech World">
+  <meta property="og:description" content="Skriv en CSS-selektor och se vilka element webbläsaren matchar, med specificitet och tolv nivåer.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://tech-world-zeta.vercel.app/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="workbench.css">
+  <link rel="stylesheet" href="course.css">
+</head>
+<body>
+  <nav class="course-bar" lang="sv" aria-label="Kursen">
+    <p class="course-name">Kurs</p>
+    <ol>
+      <li><a href="https://hello-web-kappa.vercel.app/"><span class="course-num">Lektion 1</span> Hello Web<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+      <li><a href="https://tech-world-zeta.vercel.app/" aria-current="page"><span class="course-num">Lektion 2</span> Tech World<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+      <li><a href="https://link-lab-flax.vercel.app/"><span class="course-num">Lektion 3</span> Link Lab<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+      <li><a href="https://dress-code-bay.vercel.app/"><span class="course-num">Lektion 4</span> Dress Code<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+    </ol>
+    <span class="course-motion"><button type="button" aria-pressed="false">R&ouml;relse</button></span>
+  </nav>
+
+  <header class="wb-head">
+    <p class="kicker"><a href="./">Tech World</a> / Selektorverkstan</p>
+    <h1>Så matchar webbläsaren en selektor</h1>
+    <p class="lead">Övningen från 2023 ställde två sorters selektorer mot varandra: <code>p</code> träffar alla stycken, <code>.highlight</code> bara det stycke som har klassen. Här fortsätter samma fråga: hur avgör webbläsaren vilka element en selektor träffar, och vilken regel som vinner när flera träffar?</p>
+  </header>
+
+  <main>
+    <section class="bench" id="verkstan" aria-labelledby="bench-title">
+      <h2 id="bench-title"><span class="num">1</span> Verkstan</h2>
+      <p>Dokumentet nedan bygger på sidans eget innehåll. Skriv en selektor: webbläsaren kör sin egen <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll"><code>querySelectorAll</code></a> och träffarna markeras direkt, både i bilden och i elementträdet.</p>
+      <div class="field">
+        <label for="sel">Selektor</label>
+        <input id="sel" type="text" value=".card-body > p" spellcheck="false" autocomplete="off" autocapitalize="off" aria-describedby="sel-status">
+      </div>
+      <p class="status" id="sel-status" role="status" aria-live="polite"></p>
+      <div class="panes">
+        <iframe id="doc" title="Exempeldokumentet som selektorn körs mot" src="dokument.html"></iframe>
+        <div class="tree-wrap">
+          <h3>Elementträdet</h3>
+          <ul class="tree" id="tree"></ul>
+        </div>
+      </div>
+      <div class="explain">
+        <div>
+          <h3>Delarna och specificiteten</h3>
+          <div id="breakdown"></div>
+        </div>
+        <div>
+          <h3>Från höger till vänster</h3>
+          <ol class="rtl" id="rtl"></ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="theory" aria-labelledby="theory-title">
+      <h2 id="theory-title"><span class="num">2</span> Vad verkstan räknar</h2>
+      <div class="cols">
+        <div>
+          <h3>Specificitet (a, b, c)</h3>
+          <p>Enligt <a href="https://www.w3.org/TR/selectors-4/#specificity-rules">Selectors Level 4, avsnitt 15</a> räknar webbläsaren tre tal för varje selektor:</p>
+          <ul>
+            <li><b>a</b>: id-selektorer (<code>#kort</code>)</li>
+            <li><b>b</b>: klasser, attributselektorer och pseudoklasser (<code>.cta</code>, <code>[href]</code>, <code>:hover</code>)</li>
+            <li><b>c</b>: typselektorer och pseudoelement (<code>p</code>, <code>::before</code>)</li>
+          </ul>
+          <p>Den universella selektorn <code>*</code> räknas inte. <code>:is()</code>, <code>:not()</code> och <code>:has()</code> får specificiteten från den mest specifika selektorn i sin lista, <code>:where()</code> är alltid noll, och <code>:nth-child(... of S)</code> räknas som en pseudoklass plus den mest specifika selektorn i <code>S</code>. Talen jämförs från vänster: ett enda id slår hur många klasser som helst.</p>
+          <p>Därför vinner <code>.highlight</code> över <code>p</code> i originalsidan: (0, 1, 0) är större än (0, 0, 1). Läs mer på <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity">MDN: Specificity</a>.</p>
+        </div>
+        <div>
+          <h3>Varför höger till vänster?</h3>
+          <p>En selektor som <code>.card-body &gt; p</code> består av <em>sammansatta selektorer</em> som binds ihop av <em>kombinatorer</em> (<a href="https://www.w3.org/TR/selectors-4/#structure">Selectors 4, avsnitt 3.1</a>). Delen längst till höger avgör vilket element regeln faktiskt gäller.</p>
+          <p>Webbläsarmotorer prövar därför den högra delen först och går sedan uppåt eller bakåt i trädet: först "är det här ett <code>p</code>?", sedan "är föräldern <code>.card-body</code>?". De flesta element faller bort redan i första steget. Nicole Sullivan beskriver hur WebKit grupperar reglerna efter den högra delen i <a href="https://calendar.perfplanet.com/2011/css-selector-performance-has-changed-for-the-better/">CSS Selector Performance has changed! (2011)</a>.</p>
+          <p>Stegen i verkstan visar det: varje steg lägger till en del till vänster och räknar hur många element som fortfarande matchar.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="levels" id="nivaer" aria-labelledby="levels-title">
+      <h2 id="levels-title"><span class="num">3</span> Nivåerna</h2>
+      <p>Varje nivå markerar några element med streckad ram. Skriv en selektor som väljer <em>exakt</em> dem, varken fler eller färre. Svaret kontrolleras genom att jämföra mängden träffar med mängden mål, så flera olika selektorer kan vara rätt. Målen visas i dokumentet i verkstan när du väljer en nivå eller klickar i fältet. Framstegen sparas i den här webbläsaren.</p>
+      <ol class="level-list" id="level-list"></ol>
+      <div class="level" id="level" aria-live="polite">
+        <p class="level-count" id="level-count"></p>
+        <h3 id="level-title"></h3>
+        <p id="level-text"></p>
+        <form id="level-form" class="field">
+          <label for="level-input">Din selektor</label>
+          <input id="level-input" type="text" spellcheck="false" autocomplete="off" autocapitalize="off">
+          <button type="submit">Prova</button>
+        </form>
+        <p class="level-result" id="level-result" role="status"></p>
+        <div class="level-actions">
+          <button type="button" id="level-hint">Visa ledtråd</button>
+          <button type="button" id="level-next" hidden>Nästa nivå</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="course-next" lang="sv" aria-label="N&auml;sta lektion">
+    <p>N&auml;sta lektion</p>
+    <a href="https://link-lab-flax.vercel.app/">Lektion 3: Link Lab &rarr;</a>
+  </nav>
+  <script src="specificity.js" defer></script>
+  <script src="workbench.js" defer></script>
+  <script src="course.js" defer></script>
+</body>
+</html>
