@@ -9,7 +9,7 @@ for (const file of ['index.html', 'original.html', 'workbench.html']) {
     const html = page.locator('html');
     await expect(html).toHaveAttribute('data-motion', 'on');
     expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)).toBe('smooth');
-    const btn = page.locator('.course-motion button');
+    const btn = page.locator('.course-motion');
     await expect(btn).toHaveAttribute('aria-pressed', 'true');
     await expect(btn).toHaveAccessibleName('Pausa rörelse');
     await expect(btn).toHaveText('');
