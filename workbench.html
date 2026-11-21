@@ -42,7 +42,8 @@
         <label for="sel">Selektor</label>
         <input id="sel" type="text" value=".card-body > p" spellcheck="false" autocomplete="off" autocapitalize="off" aria-describedby="sel-status">
       </div>
-      <p class="status" id="sel-status" role="status" aria-live="polite"></p>
+      <p class="status" id="sel-status"></p>
+      <p class="sr-only" id="sel-live" role="status" aria-live="polite"></p>
       <div class="panes">
         <iframe id="doc" title="Exempeldokumentet som selektorn körs mot" src="dokument.html"></iframe>
         <div class="tree-wrap" tabindex="0" role="region" aria-label="Elementträdet">
@@ -89,9 +90,9 @@
       <h2 id="levels-title"><span class="num">3</span> Nivåerna</h2>
       <p>Varje nivå markerar några element med streckad ram. Skriv en selektor som väljer <em>exakt</em> dem, varken fler eller färre. Svaret kontrolleras genom att jämföra mängden träffar med mängden mål, så flera olika selektorer kan vara rätt. Målen visas i dokumentet i verkstan när du väljer en nivå eller klickar i fältet. Framstegen sparas i den här webbläsaren.</p>
       <ol class="level-list" id="level-list"></ol>
-      <div class="level" id="level" aria-live="polite">
+      <div class="level" id="level">
         <p class="level-count" id="level-count"></p>
-        <h3 id="level-title"></h3>
+        <h3 id="level-title" tabindex="-1"></h3>
         <p id="level-text"></p>
         <form id="level-form" class="field">
           <label for="level-input">Din selektor</label>

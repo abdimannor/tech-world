@@ -7,6 +7,11 @@
   const frame = document.getElementById('doc');
   const input = document.getElementById('sel');
   const status = document.getElementById('sel-status');
+  // The visible status updates on every keystroke; screen readers get the same
+  // text through a separate live region, only after typing pauses.
+  const live = document.getElementById('sel-live');
+  let liveTimer = 0;
+  const announce = (text) => { clearTimeout(liveTimer); liveTimer = setTimeout(() => { live.textContent = text; }, 500); };
   const tree = document.getElementById('tree');
   const breakdown = document.getElementById('breakdown');
   const rtl = document.getElementById('rtl');
@@ -171,6 +176,7 @@
     const result = query(sel);
     input.setAttribute('aria-invalid', String(!result.ok && !result.empty));
     status.textContent = message(result, result.set);
+    announce(status.textContent);
     status.classList.toggle('is-error', !result.ok && !result.empty);
     paint(result.set, new Set());
     explain(sel, result);
@@ -219,7 +225,7 @@
     lvNext.hidden = !solved.has(i) || i === LEVELS.length - 1;
     paint(new Set(), targetsOf(i));
     drawList();
-    if (focus) lvInput.focus();
+    if (focus) lvTitle.focus();
   }
 
   lvForm.addEventListener('submit', (e) => {
@@ -239,6 +245,7 @@
     // Also show the matching in the workbench above.
     input.value = sel;
     status.textContent = message(result, result.set);
+    announce(status.textContent);
     status.classList.remove('is-error');
     explain(sel, result);
     if (!extra && !missing) {
