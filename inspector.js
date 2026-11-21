@@ -5,7 +5,7 @@
   'use strict';
   const panel = document.getElementById('inspector');
   const card = document.querySelector('main.card');
-  if (!panel || !card) return;
+  if (!panel || !card || window.self !== window.top) return;
   panel.hidden = false;
   document.body.classList.add('has-inspector');
 
