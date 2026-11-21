@@ -10,7 +10,8 @@ body { margin: 0; background: var(--c-bg); color: var(--c-ink); font: 400 1.0625
 main { width: min(100% - 2rem, 68rem); margin-inline: auto; }
 h1, h2, h3 { font-weight: 750; letter-spacing: -0.02em; line-height: 1.1; margin: 0; }
 p { margin: 0 0 1rem; max-width: 68ch; }
-code { font-family: var(--c-mono); font-size: .9em; }
+code { font-family: var(--c-mono); font-size: .88em; padding: .08em .35em; border-radius: 6px; background: color-mix(in srgb, var(--accent) 9%, transparent); }
+.demo-rules code, .mini code { padding: 0; background: none; }
 a:is(:link, :visited) { color: var(--accent-text); text-underline-offset: .2em; }
 a:focus-visible, button:focus-visible, input:focus-visible, .demo-switch:focus-within { outline: 2px solid var(--accent-text); outline-offset: 2px; }
 
@@ -38,7 +39,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, .demo-switch:focus-w
 .browser-top span { width: 10px; height: 10px; border-radius: 50%; background: var(--c-line); }
 .browser-top p { margin: 0 auto; padding: .1rem .9rem; font: 500 .75rem var(--c-mono); color: var(--c-muted); background: var(--c-bg); border-radius: 999px; }
 .browser iframe { display: block; width: 100%; height: clamp(22rem, 46vw, 33rem); border: 0; background: #0b1020; }
-@media (max-width: 52rem) { .original { grid-template-columns: 1fr; } }
+@media (max-width: 52rem) { .original { grid-template-columns: 1fr; } .browser iframe { height: 34rem; } }
 
 /* Core idea demo */
 .demo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); grid-template-rows: auto auto; gap: 1rem 2rem; align-items: start; }

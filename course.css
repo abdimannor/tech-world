@@ -48,6 +48,7 @@
 .course-bar [aria-current="page"] .course-num { color: var(--accent-text); }
 .course-bar .course-mark { color: var(--accent-text); font-weight: 650; }
 .course-bar .course-mark[hidden] { display: none; }
+@media (max-width: 40rem) { .course-bar ol { order: 3; width: 100%; } }
 
 /* Controls: quiet 34 px icon buttons */
 .course-motion { display: inline-flex; align-items: center; gap: .5rem; margin-left: auto; }
